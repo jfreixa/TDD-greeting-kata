@@ -15,9 +15,11 @@ export default (name = null) => {
 
   let { uppercase, lowercase } = name.reduce(
     (separatedNames, name) => {
-      isUppercase(name)
-        ? separatedNames.uppercase.push(name)
-        : separatedNames.lowercase.push(name);
+      name.split(", ").map(name => {
+        isUppercase(name)
+          ? separatedNames.uppercase.push(name)
+          : separatedNames.lowercase.push(name);
+      });
       return separatedNames;
     },
     { uppercase: [], lowercase: [] }

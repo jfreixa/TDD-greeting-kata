@@ -22,7 +22,12 @@ test("Handle arbitrarily names of input.", () => {
   expect(greeting(names)).toBe("Hello, Amy, Brian, and Charlotte.");
 });
 
-test("Allow mixing of normal and shouted names by separating the response into two greetings. ", () => {
+test("Allow mixing of normal and shouted names by separating the response into two greetings.", () => {
   const names = ["Amy", "BRIAN", "Charlotte"];
   expect(greeting(names)).toBe("Hello, Amy and Charlotte. AND HELLO BRIAN!");
+});
+
+test("If any entries in name are a string containing a comma, split it as its own input.", () => {
+  const names = ["Bob", "Charlie, Dianne"];
+  expect(greeting(names)).toBe("Hello, Bob, Charlie, and Dianne.");
 });
