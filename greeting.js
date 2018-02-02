@@ -1,17 +1,39 @@
+const isUppercase = text => text === text.toUpperCase();
+
+const shoutSingleName = name => `HELLO ${name}!`;
+
 export default (name = null) => {
   if (name === null) {
-    return "Hello, my friend.";
+    name = "my friend";
   }
-  let names = Array.isArray(name) ? name : [name];
-  if (names[0] === names[0].toUpperCase()) {
-    return `HELLO ${names[0].toUpperCase()}!`;
+  if (!Array.isArray(name)) {
+    if (isUppercase(name)) {
+      return shoutSingleName(name);
+    }
+    return `Hello, ${name}.`;
   }
-  if (names.length === 1) {
-    return `Hello, ${names[0]}.`;
+
+  let { uppercase, lowercase } = name.reduce(
+    (separatedNames, name) => {
+      isUppercase(name)
+        ? separatedNames.uppercase.push(name)
+        : separatedNames.lowercase.push(name);
+      return separatedNames;
+    },
+    { uppercase: [], lowercase: [] }
+  );
+
+  const lastName = lowercase.pop();
+  if (lowercase.length !== 1) {
+    lowercase = lowercase.join(", ") + ",";
   }
-  const lastName = names.pop();
-  if (names.length !== 1) {
-    names = names.join(", ") + ",";
+  const lowercaseText = `Hello, ${lowercase} and ${lastName}.`;
+
+  let uppercaseText;
+  if (uppercase.length === 1) {
+    uppercaseText = `AND ${shoutSingleName(uppercase[0])}`;
   }
-  return `Hello, ${names} and ${lastName}.`;
+  return uppercaseText !== undefined
+    ? `${lowercaseText} ${uppercaseText}`
+    : lowercaseText;
 };

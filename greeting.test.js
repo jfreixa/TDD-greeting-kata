@@ -21,3 +21,8 @@ test("Handle arbitrarily names of input.", () => {
   const names = ["Amy", "Brian", "Charlotte"];
   expect(greeting(names)).toBe("Hello, Amy, Brian, and Charlotte.");
 });
+
+test("Allow mixing of normal and shouted names by separating the response into two greetings. ", () => {
+  const names = ["Amy", "BRIAN", "Charlotte"];
+  expect(greeting(names)).toBe("Hello, Amy and Charlotte. AND HELLO BRIAN!");
+});
