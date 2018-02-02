@@ -8,3 +8,7 @@ test("Handle nulls by introducing a stand-in", () => {
   const name = null;
   expect(greeting(name)).toBe("Hello, my friend.");
 });
+test("Handle shouting.", () => {
+  const name = "JERRY";
+  expect(greeting(name)).toBe("HELLO JERRY!");
+});
