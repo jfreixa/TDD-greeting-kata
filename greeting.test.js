@@ -1,14 +1,18 @@
 import greeting from "./greeting";
 
 test("interpolates name in a simple greeting", () => {
-  const name = "Bob";
-  expect(greeting(name)).toBe("Hello, Bob.");
+  expect(greeting("Bob")).toBe("Hello, Bob.");
+  expect(greeting("Allie")).toBe("Hello, Allie.");
 });
 test("Handle nulls by introducing a stand-in", () => {
   const name = null;
   expect(greeting(name)).toBe("Hello, my friend.");
 });
 test("Handle shouting.", () => {
-  const name = "JERRY";
-  expect(greeting(name)).toBe("HELLO JERRY!");
+  expect(greeting("JERRY")).toBe("HELLO JERRY!");
+  expect(greeting("DAN")).toBe("HELLO DAN!");
+});
+test("Handle two names of input.", () => {
+  const names = ["Jill", "Jane"];
+  expect(greeting(names)).toBe("Hello, Jill and Jane.");
 });

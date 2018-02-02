@@ -2,8 +2,12 @@ export default (name = null) => {
   if (name === null) {
     return "Hello, my friend.";
   }
-  if (name === name.toUpperCase()) {
-    return "HELLO JERRY!";
+  let names = Array.isArray(name) ? name : [name];
+  if (names[0] === names[0].toUpperCase()) {
+    return `HELLO ${names[0].toUpperCase()}!`;
   }
-  return "Hello, Bob.";
+  if (names.length === 1) {
+    return `Hello, ${names[0]}.`;
+  }
+  return `Hello, ${names[0]} and ${names[1]}.`;
 };
