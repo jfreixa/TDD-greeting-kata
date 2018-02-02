@@ -1,6 +1,7 @@
 const isUppercase = text => text === text.toUpperCase();
 
 const shoutSingleName = name => `HELLO ${name}!`;
+const saySingleName = name => `Hello, ${name}.`;
 
 const separateNamesInUppercaseAndLowercase = (separatedNames, name) => {
   isUppercase(name)
@@ -17,35 +18,54 @@ const splitNamesWithComaNotEscaped = (names, name) => {
   return [...names, ...name.split(", ")];
 };
 
+const handleLowercaseText = names => {
+  if (names.length === 0) {
+    return "";
+  }
+  if (names.length === 1) {
+    return saySingleName(names[0]);
+  }
+  const lastName = names.pop();
+  let namesText = names.length > 1 ? names.join(", ") + "," : names[0];
+
+  return `Hello, ${namesText} and ${lastName}.`;
+};
+
+const handleUppercaseText = names => {
+  if (names.length === 0) {
+    return "";
+  }
+  if (names.length === 1) {
+    return shoutSingleName(names[0]);
+  }
+  const lastName = names.pop();
+  let namesText = names.join(", ");
+
+  return `HELLO ${namesText} AND ${lastName}!`;
+};
+
 export default (name = null) => {
   if (name === null) {
-    name = "my friend";
+    return saySingleName("my friend");
   }
-  if (!Array.isArray(name)) {
-    if (isUppercase(name)) {
-      return shoutSingleName(name);
-    }
-    return `Hello, ${name}.`;
-  }
+  let names = Array.isArray(name) ? name : [name];
 
-  let { uppercase, lowercase } = name
+  let { uppercase, lowercase } = names
     .reduce(splitNamesWithComaNotEscaped, [])
     .reduce(separateNamesInUppercaseAndLowercase, {
       uppercase: [],
       lowercase: []
     });
 
-  const lastName = lowercase.pop();
-  if (lowercase.length !== 1) {
-    lowercase = lowercase.join(", ") + ",";
-  }
-  const lowercaseText = `Hello, ${lowercase} and ${lastName}.`;
+  let lowercaseText = handleLowercaseText(lowercase);
+  let uppercaseText = handleUppercaseText(uppercase);
 
-  let uppercaseText;
-  if (uppercase.length === 1) {
-    uppercaseText = `AND ${shoutSingleName(uppercase[0])}`;
+  if (uppercaseText === "") {
+    return lowercaseText;
   }
-  return uppercaseText !== undefined
-    ? `${lowercaseText} ${uppercaseText}`
-    : lowercaseText;
+  if (lowercaseText === "") {
+    return uppercaseText;
+  }
+
+  return `${lowercaseText} AND ${uppercaseText}`;
 };

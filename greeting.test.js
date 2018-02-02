@@ -20,6 +20,11 @@ test("Handle two names of input.", () => {
   testGreeting(names, "Hello, Jill and Jane.");
 });
 
+test("Handle shouting two names.", () => {
+  const names = ["JANE", "TOMMY"];
+  testGreeting(names, "HELLO JANE AND TOMMY!");
+});
+
 test("Handle arbitrarily names of input.", () => {
   const names = ["Amy", "Brian", "Charlotte"];
   testGreeting(names, "Hello, Amy, Brian, and Charlotte.");
