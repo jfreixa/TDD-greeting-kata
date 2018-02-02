@@ -11,6 +11,11 @@ test("interpolates name in a simple greeting", () => {
 test("Handle nulls by introducing a stand-in", () => {
   testGreeting(null, "Hello, my friend.");
 });
+
+test("Handle undefineds", () => {
+  expect(greeting()).toBe(output);
+});
+
 test("Handle shouting.", () => {
   testGreeting("JERRY", "HELLO JERRY!");
   testGreeting("DAN", "HELLO DAN!");
@@ -30,9 +35,14 @@ test("Handle arbitrarily names of input.", () => {
   testGreeting(names, "Hello, Amy, Brian, and Charlotte.");
 });
 
-test("Allow mixing of normal and shouted names by separating the response into two greetings.", () => {
+test("Allow mixing of normal and single shouted names by separating the response into two greetings.", () => {
   const names = ["Amy", "BRIAN", "Charlotte"];
   testGreeting(names, "Hello, Amy and Charlotte. AND HELLO BRIAN!");
+});
+
+test("Allow mixing of normal and multiple shouted names by separating the response into two greetings.", () => {
+  const names = ["Amy", "BRIAN", "CHARLES", "Charlotte"];
+  testGreeting(names, "Hello, Amy and Charlotte. AND HELLO BRIAN AND CHARLES!");
 });
 
 test("If any entries in name are a string containing a comma, split it as its own input.", () => {
