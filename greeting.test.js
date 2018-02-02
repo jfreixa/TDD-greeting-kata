@@ -31,3 +31,7 @@ test("If any entries in name are a string containing a comma, split it as its ow
   const names = ["Bob", "Charlie, Dianne"];
   expect(greeting(names)).toBe("Hello, Bob, Charlie, and Dianne.");
 });
+test("Allow the input to escape intentional commas introduced by Requirement 7", () => {
+  const names = ["Bob", '"Charlie, Dianne"'];
+  expect(greeting(names)).toBe("Hello, Bob and Charlie, Dianne.");
+});

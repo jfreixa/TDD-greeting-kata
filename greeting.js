@@ -2,6 +2,21 @@ const isUppercase = text => text === text.toUpperCase();
 
 const shoutSingleName = name => `HELLO ${name}!`;
 
+const separateNamesInUppercaseAndLowercase = (separatedNames, name) => {
+  isUppercase(name)
+    ? separatedNames.uppercase.push(name)
+    : separatedNames.lowercase.push(name);
+  return separatedNames;
+};
+
+const splitNamesWithComaNotEscaped = (names, name) => {
+  if (name[0] === '"' && name[name.length - 1]) {
+    const escapedName = name.substr(1, name.length - 2);
+    return [...names, escapedName];
+  }
+  return [...names, ...name.split(", ")];
+};
+
 export default (name = null) => {
   if (name === null) {
     name = "my friend";
@@ -13,17 +28,12 @@ export default (name = null) => {
     return `Hello, ${name}.`;
   }
 
-  let { uppercase, lowercase } = name.reduce(
-    (separatedNames, name) => {
-      name.split(", ").map(name => {
-        isUppercase(name)
-          ? separatedNames.uppercase.push(name)
-          : separatedNames.lowercase.push(name);
-      });
-      return separatedNames;
-    },
-    { uppercase: [], lowercase: [] }
-  );
+  let { uppercase, lowercase } = name
+    .reduce(splitNamesWithComaNotEscaped, [])
+    .reduce(separateNamesInUppercaseAndLowercase, {
+      uppercase: [],
+      lowercase: []
+    });
 
   const lastName = lowercase.pop();
   if (lowercase.length !== 1) {
