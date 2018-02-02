@@ -16,3 +16,8 @@ test("Handle two names of input.", () => {
   const names = ["Jill", "Jane"];
   expect(greeting(names)).toBe("Hello, Jill and Jane.");
 });
+
+test("Handle arbitrarily names of input.", () => {
+  const names = ["Amy", "Brian", "Charlotte"];
+  expect(greeting(names)).toBe("Hello, Amy, Brian, and Charlotte.");
+});

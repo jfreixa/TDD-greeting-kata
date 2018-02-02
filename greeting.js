@@ -9,5 +9,9 @@ export default (name = null) => {
   if (names.length === 1) {
     return `Hello, ${names[0]}.`;
   }
-  return `Hello, ${names[0]} and ${names[1]}.`;
+  const lastName = names.pop();
+  if (names.length !== 1) {
+    names = names.join(", ") + ",";
+  }
+  return `Hello, ${names} and ${lastName}.`;
 };
