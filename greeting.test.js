@@ -13,7 +13,7 @@ test("Handle nulls by introducing a stand-in", () => {
 });
 
 test("Handle undefineds", () => {
-  expect(greeting()).toBe(output);
+  expect(greeting()).toBe("Hello, my friend.");
 });
 
 test("Handle shouting.", () => {
